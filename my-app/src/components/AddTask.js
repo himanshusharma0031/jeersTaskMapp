@@ -22,7 +22,7 @@ function AddTask({ getTasks }) {
       getTasks();
 
     } catch (err) {
-      alert(err.response.data.message);
+      alert("Please fill title or description");
     }
   };
 
