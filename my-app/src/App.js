@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/DashBoard";
-import {SignIn,SignUp,SignedIn,SignedOut,RedirectToSignIn, useAuth} from "@clerk/clerk-react"
+import {SignedIn,SignedOut,RedirectToSignIn, useAuth} from "@clerk/clerk-react"
 import { useEffect } from "react";
 import API from "./axios";
 
@@ -23,14 +23,11 @@ function App() {
     <BrowserRouter>
       <Routes>
 
-        {/* <Route path="/" element={<Login />} />
+         <Route path="/" element={<Login />} />
 
-         <Route path="/register" element={<Register />} /> */} 
+         <Route path="/register" element={<Register />} />
         {/* fallbackRedirectUrl="/dashboard" */}
 
-        <Route path="/" element={<SignIn  signUpUrl="/register" fallbackRedirectUrl="/dashboard"  />} />
-
-        <Route path="/register" element={<SignUp signInUrl="/" fallbackRedirectUrl="/dashboard" />} />
 
         <Route path="/dashboard" element={<><SignedIn><Dashboard /></SignedIn>
                                           <SignedOut><RedirectToSignIn/></SignedOut>
