@@ -3,6 +3,7 @@ import API from "../axios";
 import AddTask from "../components/AddTask";
 import TaskCard from "../components/TaskCard";
 import "./DashBoard.css";
+import { UserButton } from "@clerk/clerk-react";
 
 function Dashboard() {
   const [tasks, setTasks] = useState([]);
@@ -34,8 +35,10 @@ function Dashboard() {
         <TaskCard key={task._id} task={task} getTasks={getTasks} />
       ))}
    </div>
-     
+     <div>
 
+     </div>
+      <UserButton/>
     </div>
   );
 }

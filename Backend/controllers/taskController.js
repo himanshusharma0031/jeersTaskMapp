@@ -2,7 +2,7 @@ const Task = require("../Model/Task");
 
 // Get Tasks
 const getTasks = async (req, res) => {
-  const tasks = await Task.find({ user: req.user.id });
+  const tasks = await Task.find({ user: req.auth.userId });
   res.json(tasks);
 };
 
@@ -13,7 +13,7 @@ const addTask = async (req, res) => {
   const task = await Task.create({
     title,
     description,
-    user: req.user.id,
+    user: req.auth.userId,
   });
 
   res.status(201).json(task);
