@@ -80,7 +80,7 @@ function TaskCard({ task, getTasks }) {
 
       </select>
 
-      <select value={task.priority || "Medium"} onChange={changePriority} style={{ marginLeft: "10px" }}>
+      <select value={task.priority || "Medium"} onChange={changePriority}>
         <option value="High">High</option>
         <option value="Medium">Medium</option>
         <option value="Low">Low</option>

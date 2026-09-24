@@ -3,7 +3,9 @@ import {SignUp} from "@clerk/clerk-react"
 
 function Register() {
 return(
-  <SignUp signInUrl="/" fallbackRedirectUrl="/dashboard" />
+  <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', background: '#f4f7fc' }}>
+    <SignUp signInUrl="/" fallbackRedirectUrl="/dashboard" />
+  </div>
 )
 }
 
