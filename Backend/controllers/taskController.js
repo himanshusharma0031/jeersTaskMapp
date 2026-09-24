@@ -8,11 +8,12 @@ const getTasks = async (req, res) => {
 
 // Add Task
 const addTask = async (req, res) => {
-  const { title, description } = req.body;
+  const { title, description, priority } = req.body;
 
   const task = await Task.create({
     title,
     description,
+    priority,
     user: req.auth.userId,
   });
 
@@ -52,10 +53,24 @@ const updateStatus = async (req, res) => {
   res.json(task);
 };
 
+// Update Priority
+const updatePriority = async (req, res) => {
+  const task = await Task.findByIdAndUpdate(
+    req.params.id,
+    {
+      priority: req.body.priority,
+    },
+    { new: true }
+  );
+
+  res.json(task);
+};
+
 module.exports = {
   getTasks,
   addTask,
   updateTask,
   deleteTask,
   updateStatus,
+  updatePriority,
 };

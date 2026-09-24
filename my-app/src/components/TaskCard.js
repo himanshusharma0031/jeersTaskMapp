@@ -1,44 +1,58 @@
 import API from "../axios";
+import toast from "react-hot-toast";
 import "./TaskCard.css";
 function TaskCard({ task, getTasks }) {
 
   const deleteTask = async () => {
-
-    await API.delete(`/tasks/${task._id}`);
-
-    alert("Task Deleted");
-
-    getTasks();
-
+    try {
+      await API.delete(`/tasks/${task._id}`);
+      toast.success("Task Deleted Successfully!");
+      getTasks();
+    } catch (error) {
+      toast.error("Failed to delete task");
+    }
   };
   const editTask = async () => {
+    const title = prompt("Enter New Title", task.title);
+    if (title === null) return;
 
-const title=prompt("Enter New Title",task.title);
+    const description = prompt("Enter Description", task.description);
+    if (description === null) return;
 
-const description=prompt("Enter Description",task.description);
-
-await API.put(`/tasks/${task._id}`,{
-
-title,
-
-description,
-
-});
-
-getTasks();
-
-}
+    try {
+      await API.put(`/tasks/${task._id}`, {
+        title,
+        description,
+      });
+      toast.success("Task Updated Successfully!");
+      getTasks();
+    } catch (error) {
+      toast.error("Failed to update task");
+    }
+  };
 
   const changeStatus = async (e) => {
+    try {
+      await API.patch(`/tasks/${task._id}/status`, {
+        status: e.target.value,
+      });
+      toast.success("Task Status Updated!");
+      getTasks();
+    } catch (error) {
+      toast.error("Failed to update status");
+    }
+  };
 
-    await API.patch(`/tasks/${task._id}/status`, {
-
-      status: e.target.value,
-
-    });
-
-    getTasks();
-
+  const changePriority = async (e) => {
+    try {
+      await API.patch(`/tasks/${task._id}/priority`, {
+        priority: e.target.value,
+      });
+      toast.success("Task Priority Updated!");
+      getTasks();
+    } catch (error) {
+      toast.error("Failed to update priority");
+    }
   };
 
   return (
@@ -54,6 +68,7 @@ getTasks();
       <h3>{task.title}</h3>
 
       <p>{task.description}</p>
+      <p><strong>Priority:</strong> <span className={`priority ${task.priority?.toLowerCase() || 'medium'}`}>{task.priority || "Medium"}</span></p>
 
       <select value={task.status} onChange={changeStatus}>
 
@@ -63,6 +78,12 @@ getTasks();
 
         <option>Completed</option>
 
+      </select>
+
+      <select value={task.priority || "Medium"} onChange={changePriority} style={{ marginLeft: "10px" }}>
+        <option value="High">High</option>
+        <option value="Medium">Medium</option>
+        <option value="Low">Low</option>
       </select>
 
       <br /><br />

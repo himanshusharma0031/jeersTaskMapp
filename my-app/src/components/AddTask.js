@@ -1,9 +1,13 @@
 import { useState } from "react";
 import API from "../axios";
+import toast from "react-hot-toast";
+
 
 function AddTask({ getTasks }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [priority, setPriority] = useState("Medium");
+
 
   const addTask = async (e) => {
     e.preventDefault();
@@ -12,17 +16,20 @@ function AddTask({ getTasks }) {
       await API.post("/tasks", {
         title,
         description,
+        priority,
       });
 
-      alert("Task Added");
+      toast.success("Task Added Successfully!");
+
 
       setTitle("");
       setDescription("");
+      setPriority("Medium");
 
       getTasks();
 
     } catch (err) {
-      alert("Please fill title or description");
+      toast.error("Please fill title or description");
     }
   };
 
@@ -43,6 +50,14 @@ function AddTask({ getTasks }) {
         value={description}
         onChange={(e) => setDescription(e.target.value)}
       />
+
+      <br /><br />
+
+      <select value={priority} onChange={(e) => setPriority(e.target.value)}>
+        <option value="High">High</option>
+        <option value="Medium">Medium</option>
+        <option value="Low">Low</option>
+      </select>
 
       <br /><br />
 

@@ -5,6 +5,7 @@ import Dashboard from "./pages/DashBoard";
 import {SignedIn,SignedOut,RedirectToSignIn, useAuth} from "@clerk/clerk-react"
 import { useEffect } from "react";
 import API from "./axios";
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   const {getToken} = useAuth()
@@ -20,8 +21,10 @@ function App() {
     setupToken();
   }, [getToken]);
   return (
-    <BrowserRouter>
-      <Routes>
+    <>
+      <Toaster position="top-right" />
+      <BrowserRouter>
+        <Routes>
 
          <Route path="/" element={<Login />} />
 
@@ -35,6 +38,7 @@ function App() {
 
       </Routes>
     </BrowserRouter>
+    </>
   );
 }
 
